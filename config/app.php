@@ -168,7 +168,7 @@ return [
          */
         Laravel\Tinker\TinkerServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
-        Darryldecode\Cart\CartServiceProvider::class,
+        // JeroenDesloovere\VCard\VCard::class,
 
         /*
          * Application Service Providers...
@@ -230,7 +230,6 @@ return [
 
                 //Intervention
         'Image' => Intervention\Image\Facades\Image::class,
-        'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
 
     ],
 

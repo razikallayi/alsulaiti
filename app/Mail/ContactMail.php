@@ -13,8 +13,6 @@ class ContactMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    const DESTINATION_EMAIL= "info@flexzila.com";
-
     public $request;
     /**
      * Create a new message instance.
@@ -24,6 +22,11 @@ class ContactMail extends Mailable
     public function __construct(Request $request)
     {
      $this->request = $request;
+    }
+
+    public static function getDestinationEmails()
+    {
+       return array("info@slf-qa.com");
     }
 
     /**

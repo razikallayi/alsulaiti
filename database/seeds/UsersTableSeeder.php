@@ -25,7 +25,7 @@ class UsersTableSeeder extends Seeder
             'name' => 'Developer',
             'username' => 'whyte',
             'email' => 'info@whytecreations.com',
-            'password' => bcrypt('!@#$1234'),
+            'password' => bcrypt('P@ssw0rd#123'),
         ]
         );
     }

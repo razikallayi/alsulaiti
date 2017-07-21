@@ -25,7 +25,7 @@
 
 }
 
-#ImageInput{
+#ImageInput,.imageInput,.fileInput{
   max-width:75px;
   max-height:70px;
   overflow:hidden;

@@ -16,13 +16,13 @@ class CreateInsightsTable extends Migration
         Schema::create('insights', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->string('title')->nullable();
-            $table->string('author_id')->nullable();
-            $table->string('content')->nullable(); 
+            $table->text('title')->nullable();
+            $table->integer('author_id')->nullable();
+            $table->text('content')->nullable(); 
             $table->string('image')->nullable(); 
 
-            $table->string('title_ar')->nullable();
-            $table->string('content_ar')->nullable();
+            $table->text('title_ar')->nullable();
+            $table->text('content_ar')->nullable();
             
             $table->text('slug')->nullable();
             $table->integer('listing_order')->nullable();

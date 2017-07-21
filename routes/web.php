@@ -10,68 +10,60 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('clear',function(){
 
-Route::get('clear-cache',function(){
 	Artisan::call('config:clear');
 	Artisan::call('view:clear');
 	Artisan::call('cache:clear');
+	Artisan::call('route:clear');
 	dd('cleared cache files');
 });
-
-
-Route::get('/', 'MasterController@index');
-Route::get('category/{slug}', 'MasterController@products');
-Route::get('product/{slug}', 'MasterController@productDetail');
-Route::get('about', 'MasterController@about');
-Route::get('brands', 'MasterController@brands');
-Route::get('cart', 'MasterController@cart');
-Route::get('privacy', 'MasterController@privacy');
-Route::get('terms', 'MasterController@terms');
-Route::get('contact', 'MasterController@contact');
-Route::post('subscribe', 'MasterController@subscribe');
-Route::post('contact', 'MasterController@contactMail');
-Route::post('career_mail', 'MasterController@careerMail');
-Route::post('product/addtocart','MasterController@addToCart');
-Route::post('product/updatecart','MasterController@updateCart');
-Route::delete('product/removefromcart','MasterController@removeFromCart');
-Route::post('product/checkout','MasterController@checkout');
 
 
 Route::get('/','MasterController@index');
 Route::get('/about', 'MasterController@aboutUs');
 Route::get('/training', 'MasterController@training');
-Route::get('/services', 'MasterController@services');
+Route::post('/training', 'MasterController@trainingMail');
+Route::get('/service', 'MasterController@service');
 Route::get('/events', 'MasterController@events');
 Route::get('/publications', 'MasterController@publications');
-Route::get('publications/{slug}','MasterController@publication');
-Route::get('/newsroom', 'MasterController@newsroom');
+Route::get('/newsrooms', 'MasterController@newsrooms');
 Route::get('/corporate-responsibility', 'MasterController@corporate');
 Route::get('/team', 'MasterController@team');
+Route::get('/team/{slug}', 'MasterController@teamDetails');
+Route::get('/team/{slug}/vcard', 'MasterController@teamVcard');
 Route::get('/clients', 'MasterController@clients');
-Route::get('/contact', 'MasterController@contactUs');
-Route::get('/blog','MasterController@blog');
+Route::get('/contact', 'MasterController@contact');
+Route::post('/contact', 'MasterController@contactMail');
+Route::get('/insights','MasterController@insights');
+Route::get('/insights/{slug}','MasterController@insightDetails');
+Route::get('/book/{slug}','MasterController@book');
 
 
 
 
 Route::group([
 	'prefix' => 'ar'],function () {
-Route::get('/', 'MasterController@index');
-Route::get('category/{slug}', 'MasterController@products');
-Route::get('product/{slug}', 'MasterController@productDetail');
-Route::get('about', 'MasterController@about');
-Route::get('brands', 'MasterController@brands');
-Route::get('cart', 'MasterController@cart');
-Route::get('privacy', 'MasterController@privacy');
-Route::get('terms', 'MasterController@terms');
-Route::get('contact', 'MasterController@contact');
-Route::post('subscribe', 'MasterController@subscribe');
-Route::post('contact', 'MasterController@contactMail');
-Route::post('career_mail', 'MasterController@careerMail');
-Route::post('product/addtocart','MasterController@addToCart');
-Route::post('product/updatecart','MasterController@updateCart');
-Route::delete('product/removefromcart','MasterController@removeFromCart');
-Route::post('product/checkout','MasterController@checkout');
+
+		Route::get('/','MasterController@index');
+		Route::get('/about', 'MasterController@aboutUs');
+		Route::get('/training', 'MasterController@training');
+		Route::post('/training', 'MasterController@trainingMail');
+		Route::get('/service', 'MasterController@service');
+		Route::get('/events', 'MasterController@events');
+		Route::get('/publications', 'MasterController@publications');
+		Route::get('/newsrooms', 'MasterController@newsrooms');
+		Route::get('/corporate-responsibility', 'MasterController@corporate');
+		Route::get('/team', 'MasterController@team');
+		Route::get('/team/{slug}', 'MasterController@teamDetails');
+		Route::get('/team/{slug}/vcard', 'MasterController@teamVcard');
+		Route::get('/clients', 'MasterController@clients');
+		Route::get('/contact', 'MasterController@contact');
+		Route::post('/contact', 'MasterController@contactMail');
+		Route::get('/insights','MasterController@insights');
+		Route::get('/insights/{slug}','MasterController@insightDetails');
+		Route::get('/book/{slug}','MasterController@book');
+
 });
 
 
@@ -93,26 +85,93 @@ Route::group([
 	Route::get('team/edit/{id}','TeamController@create');
 	Route::put('team/update/{id}','TeamController@update');
 	Route::delete('team/{id}','TeamController@destroy');
+	Route::get('team/sort','TeamController@showSort');
 	Route::post('team/sort','TeamController@sort');
 	Route::post('team/image','TeamController@saveImage');
+	Route::delete('team/image','TeamController@deleteImage');
 
-	// Route::get('products','ProductController@index');
-	// Route::post('products','ProductController@store');
-	// Route::get('products/add','ProductController@create');
-	// Route::get('products/edit/{id}','ProductController@create');
-	// Route::put('products/edit/{id}','ProductController@update');
-	// Route::post('products/image','ProductController@saveImage');
+//Client
+	Route::get('client','ClientController@index');
+	Route::get('client/add','ClientController@create');
+	Route::post('client','ClientController@store');
+	Route::get('client/edit/{id}','ClientController@create');
+	Route::put('client/update/{id}','ClientController@update');
+	Route::delete('client/{id}','ClientController@destroy');
+	Route::post('client/image','ClientController@saveImage');
+	Route::get('client/sort','ClientController@showSort');
+	Route::post('client/sort','ClientController@sort');
+	// Route::delete('client/image','ClientController@deleteImage');
+
+//Service
+	Route::get('service','ServiceController@index');
+	Route::get('service/add','ServiceController@create');
+	Route::post('service','ServiceController@store');
+	Route::get('service/edit/{id}','ServiceController@create');
+	Route::put('service/update/{id}','ServiceController@update');
+	Route::delete('service/{id}','ServiceController@destroy');
+	Route::post('service/image','ServiceController@saveImage');
+	Route::get('service/sort','ServiceController@showSort');
+	Route::post('service/sort','ServiceController@sort');
+	// Route::delete('service/image','ServiceController@deleteImage');
 
 
-	Route::get('news','NewsController@index');
-	Route::get('news/add','NewsController@create');
-	Route::post('news','NewsController@store');
-	Route::get('news/edit/{id}','NewsController@edit');
-	Route::delete('news/image','NewsController@deleteImage');
-	Route::post('news/image','NewsController@saveImage');
-	Route::put('news/{id}','NewsController@update');
-	Route::delete('news/{id}','NewsController@destroy');
+//Insight
+	Route::get('insight','InsightController@index');
+	Route::get('insight/add','InsightController@create');
+	Route::post('insight','InsightController@store');
+	Route::get('insight/edit/{id}','InsightController@create');
+	Route::put('insight/update/{id}','InsightController@update');
+	Route::post('insight/image','InsightController@saveImage');
+	Route::delete('insight/{id}','InsightController@destroy');
+	Route::get('insight/sort','InsightController@showSort');
+	Route::post('insight/sort','InsightController@sort');
+	// Route::delete('insight/image','InsightController@deleteImage');
+
+
+	Route::get('event','EventController@index');
+	Route::get('event/add','EventController@create');
+	Route::post('event','EventController@store');
+	Route::get('event/edit/{id}','EventController@create');
+	Route::put('event/update/{id}','EventController@update');
+	Route::delete('event/{id}','EventController@destroy');
+	Route::post('event/image','EventController@saveImage');
+	Route::get('event/sort','EventController@showSort');
+	Route::post('event/sort','EventController@sort');
+	// Route::delete('event/image','EventController@deleteImage');
+
 	
+	Route::get('publication','PublicationController@index');
+	Route::get('publication/add','PublicationController@create');
+	Route::post('publication','PublicationController@store');
+	Route::get('publication/edit/{id}','PublicationController@create');
+	Route::put('publication/update/{id}','PublicationController@update');
+	Route::delete('publication/{id}','PublicationController@destroy');
+	Route::post('publication/image','PublicationController@saveImage');
+	Route::get('publication/sort','PublicationController@showSort');
+	Route::post('publication/sort','PublicationController@sort');
+	// Route::delete('publication/image','PublicationController@deleteImage');
+
+	Route::get('video','VideoController@index');
+	Route::get('video/add','VideoController@create');
+	Route::post('video','VideoController@store');
+	Route::get('video/edit/{id}','VideoController@create');
+	Route::put('video/update/{id}','VideoController@update');
+	Route::get('video/sort','VideoController@showSort');
+	Route::post('video/sort','VideoController@sort');
+	Route::delete('video/{id}','VideoController@destroy');
+
+
+	//Service
+		Route::get('testimonial','TestimonialController@index');
+		Route::get('testimonial/add','TestimonialController@create');
+		Route::post('testimonial','TestimonialController@store');
+		Route::get('testimonial/edit/{id}','TestimonialController@create');
+		Route::put('testimonial/update/{id}','TestimonialController@update');
+		Route::delete('testimonial/{id}','TestimonialController@destroy');
+		Route::post('testimonial/image','TestimonialController@saveImage');
+		Route::get('testimonial/sort','TestimonialController@showSort');
+		Route::post('testimonial/sort','TestimonialController@sort');
+		// Route::delete('testimonial/image','ServiceController@deleteImage');
 
 	
 	});

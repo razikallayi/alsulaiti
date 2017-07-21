@@ -4,7 +4,8 @@
     <div class="quick-icon"><i class="fa fa-paper-plane"></i></div>
         <div class="quick-txt">
            <h2>Contact Form</h2>
-      <form action="" method="POST">
+      <form action="{{url('contact')}}" method="POST">
+      {{csrf_field()}}
            <span class="input input--hoshi">
           <input name="name" required class="input__field input__field--hoshi" type="text" id="input-4" />
           <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="input-4">
@@ -30,7 +31,6 @@
           </label>
         </span>
 
-       <input type="hidden" name="location" value="<?php echo basename($_SERVER['PHP_SELF']); ?>"/>
        
        <div class="col-md-12">
          <button name="submit" class="quick-btn">Submit</button>

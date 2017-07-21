@@ -17,11 +17,11 @@ class CreateServicesTable extends Migration
             $table->increments('id');
 
             $table->string('title')->nullable();
-            $table->string('content')->nullable(); 
+            $table->text('content')->nullable(); 
             $table->string('image')->nullable(); 
 
             $table->string('title_ar')->nullable();
-            $table->string('content_ar')->nullable();
+            $table->text('content_ar')->nullable();
             
             $table->text('slug')->nullable();
             $table->integer('listing_order')->nullable();

@@ -1,20 +1,40 @@
-@extends('project.layout.common')
+@extends('project.layout.project')
+
 @section('content')
 
-@include('project.layout.partials.quick_response')
-@include('project.layout.partials.sticky_social_icons')
-@include('project.layout.partials.header')
+
    
 <div class="about-ttl">
   <div class="container">
      <div class="col-md-12 no-padding">
         <div class="about-ttl-in">
 
+        
+          @if (count($errors) > 0)
+          <div class="alert alert-danger">
+            <ul>
+              @foreach ($errors->all() as $error)
+              <li>{{ $error }}</li>
+              @endforeach
+            </ul>
+          </div>
+          @endif
+
+          @if (session()->has('message'))
+          <div class="alert {{session()->get('status')}}">
+            <ul>
+              <li>{!!session()->get('message')!!}</li>
+            </ul>
+          </div>
+          @endif
+
+
+@include('project.layout.partials.mail_alert')
 
            <h2>Training</h2>
            <div class="breadcrumbs">
               <ul>
-                 <li><a href="index.php">Home</a></li>
+                 <li><a href="{{url('/')}}">Home</a></li>
                  <li class="breadcrumbs-active">Training</li>
               </ul>
            </div>
@@ -28,16 +48,17 @@
   <div id="horizontalTab">
   
         <ul>
-            <li><a href="#tab-1">Students Training</a></li>
-            <li><a href="#tab-2">Graduates Training</a></li>
+            <li><a href="#students-training">Students Training</a></li>
+            <li><a href="#graduates-training">Graduates Training</a></li>
         </ul>
 
-        <div id="tab-1">
-        <form action="training_mail.php" method="post" enctype="multipart/form-data">
+        <div id="students-training">
+        <form action="{{URL('training')}}" method="post" enctype="multipart/form-data">
+        {{csrf_field()}}
               <div class="pd-txt animated slideInUp">
   <div class="container">
      <div class="col-md-12 no-padding clearfix">
-      <h4>Personal Details <img src="{{url('project/images/icons/pd.png')}}"></h4>
+      <h4>Personal Details <img src="{{ url('project/images/icons/pd.png') }}"></h4>
           <div class="row">
                <div class="col-md-4">
                     <div class="form-group">
@@ -107,7 +128,7 @@
 <div class="ad animated slideInUp">
   <div class="container">
       <div class="col-md-12 no-padding">
-        <h4>Acadamic Details <img src="{{url('project/images/icons/pd.png')}}"></h4>
+        <h4>Acadamic Details <img src="{{ url('project/images/icons/pd.png') }}"></h4>
       <div class="row">
                <div class="col-md-6">
                     <div class="form-group">
@@ -189,7 +210,7 @@
                      <p>University Reference</p>
 
                        <span id="filename" class="filename">Select your file</span>
-    <label for="file-upload">Browse<input name="file" type="file" id="file-upload" class="file-upload" required></label>
+    <label for="file-upload">Browse<input name="file" accept="application/msword,  application/pdf" type="file" id="file-upload" class="file-upload" required></label>
     <!-- <p class="help-block">upload pdf, doc, jpg, png</p> -->
 
                </div>
@@ -200,7 +221,7 @@
                      <p>&nbsp;</p>
                     <div class="form-group">
                 <input type="hidden" name="subject" value="Students Training Enquiry">
-                <input type="hidden" name="location" value="<?php echo '#tab-1'; ?>">
+                <input type="hidden" name="page" value="#students-training">
                 <button type="submit" name="submit" class="button button--shikoba button--round-s button--border-thin"><i class="button__icon"></i><span>Submit Now</span></button>
             </div>
                </div>
@@ -212,12 +233,13 @@
 </div>
 </form>
 </div>
-        <div id="tab-2">
-  <form action="training_mail.php" method="post" enctype="multipart/form-data">
+        <div id="graduates-training">
+  <form action="{{URL('training')}}" method="post" enctype="multipart/form-data">
+  {{csrf_field()}}
               <div class="pd-txt animated slideInUp">
   <div class="container">
      <div class="col-md-12 no-padding clearfix">
-      <h4>Personal Details <img src="{{url('project/images/icons/pd.png')}}"></h4>
+      <h4>Personal Details <img src="{{ url('project/images/icons/pd.png') }}"></h4>
           <div class="row">
                <div class="col-md-4">
                     <div class="form-group">
@@ -287,7 +309,7 @@
 <div class="ad animated slideInUp">
   <div class="container">
       <div class="col-md-12 no-padding">
-        <h4>Acadamic Details <img src="{{url('project/images/icons/pd.png')}}"></h4>
+        <h4>Acadamic Details <img src="{{ url('project/images/icons/pd.png') }}"></h4>
       <div class="row">
                <div class="col-md-6">
                     <div class="form-group">
@@ -369,7 +391,7 @@
                      <p>University Reference</p>
 
                        <span id="filename1" class="filename">Select your file</span>
-    <label for="file-upload1">Browse<input name="file" type="file" id="file-upload1" class="file-upload" required></label>
+    <label for="file-upload1">Browse<input name="file" accept="application/msword,  application/pdf"  type="file" id="file-upload1" class="file-upload" required></label>
 
 
                </div>
@@ -380,7 +402,7 @@
                      <p>&nbsp;</p>
                     <div class="form-group">
             <input type="hidden" name="subject" value="Graduates Training Enquiry">
-            <input type="hidden" name="location" value="<?php echo '#tab-2'; ?>">
+            <input type="hidden" name="page" value="#graduates-training">
                 <button type="submit" name="submit" class="button button--shikoba button--round-s button--border-thin"><i class="button__icon"></i><span>Submit Now</span></button>
             </div>
                </div>
@@ -401,12 +423,13 @@
 
 
 
+
+	
+
 @endsection
 @section('scripts')
-@parent
- 
 
-
+<script src="{{url('project/js/owl.carousel.js') }}"></script>
 <script>
 
 	$(document).ready(function() {	
@@ -419,11 +442,7 @@
 	});
 	});
 	
-  $("a[href='#top']").click(function() {
-     $("html, body").animate({ scrollTop: 0 }, "slow");
-     return false;
-  });
-  
+
 
 $('#file-upload').change(function () {
     var filepath = this.value;
@@ -442,8 +461,9 @@ $('#file-upload1').change(function () {
 </script>
 
 
-<script type="text/javascript" src="{{url('project/js/jquery.datepicker.js')}}"></script>
-    <script src="{{url('project/js/jquery.responsiveTabs.js')}}" type="text/javascript"></script>
+
+<script type="text/javascript" src="{{url('project/js/jquery.datepicker.js') }}"></script>
+    <script src="{{url('project/js/jquery.responsiveTabs.js') }}" type="text/javascript"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -466,5 +486,4 @@ $('#file-upload1').change(function () {
         });
     </script>
 	
-
 @endsection
